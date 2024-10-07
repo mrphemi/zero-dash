@@ -8,7 +8,7 @@ import { type Data } from "@/lib/type";
 import { transformToDetailedWeeklyData } from "@/lib/utils";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "./ui/card";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "./ui/chart";
 
 type ChartProps = {
@@ -27,13 +27,14 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 const Chart = ({ data }: ChartProps) => {
-	const x = transformToDetailedWeeklyData(data);
-	const [selectedWeek, setSelectedWeek] = React.useState<string | null>(x[0].date_range);
-	const selectedWeekData = x.find((item) => item.date_range === selectedWeek);
+	const weeklyData = transformToDetailedWeeklyData(data).reverse();
+	const [selectedWeek, setSelectedWeek] = React.useState<string | null>(weeklyData[0].date_range);
+	const selectedWeekData = weeklyData.find((item) => item.date_range === selectedWeek);
 	return (
 		<Card className="border-muted">
 			<CardHeader>
-				<CardTitle className="font-medium text-lg">{selectedWeek}</CardTitle>
+				<CardTitle>Weekly Fuel and Water Production</CardTitle>
+				<CardDescription>{selectedWeek}</CardDescription>
 			</CardHeader>
 			<CardContent>
 				<Select onValueChange={(value) => setSelectedWeek(value)}>
@@ -41,7 +42,7 @@ const Chart = ({ data }: ChartProps) => {
 						<SelectValue placeholder={selectedWeek ? selectedWeek : "Select week"} />
 					</SelectTrigger>
 					<SelectContent>
-						{x.map((item) => (
+						{weeklyData.map((item) => (
 							<SelectItem key={item.date_range} value={item.date_range}>
 								{item.date_range}
 							</SelectItem>

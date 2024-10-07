@@ -41,9 +41,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 		<Card className="border-muted overflow-hidden">
 			<CardHeader>
 				<CardTitle>Fuel and Water Production</CardTitle>
-				<CardDescription>
-					Showing fuel and water production in last 3 months
-				</CardDescription>
+				<CardDescription>Showing results for last 3 months</CardDescription>
 			</CardHeader>
 			<CardContent>
 				<div className="rounded-md border border-muted">

@@ -21,7 +21,11 @@ export default async function Home() {
 	const totalFuelProduced = data.reduce((acc, item) => acc + item.fuel_mass__g, 0);
 	const totalWaterProduced = data.reduce((acc, item) => acc + item.water_mass__g, 0);
 	const peakFuelProduced = Math.max(...data.map((item) => item.fuel_mass__g));
+	const peakFuelExperimentandDate = data.find((item) => item.fuel_mass__g === peakFuelProduced);
 	const peakWaterConsumed = Math.max(...data.map((item) => item.water_mass__g));
+	const peakWaterExperimentandDate = data.find(
+		(item) => item.water_mass__g === peakWaterConsumed
+	);
 
 	// Sort data by datetime in descending order
 	const sortedData = data.sort(
@@ -43,11 +47,15 @@ export default async function Home() {
 						/>
 						<Metric
 							title="Peak Fuel Production"
-							value={`${peakFuelProduced.toLocaleString()}g`}
+							value={`${peakFuelProduced.toLocaleString()}g : ${moment(
+								peakFuelExperimentandDate?.datetime
+							).format("MMM D, YYYY h:mm A")}`}
 						/>
 						<Metric
 							title="Peak Water Production"
-							value={`${peakWaterConsumed.toLocaleString()}g`}
+							value={`${peakWaterConsumed.toLocaleString()}g : ${moment(
+								peakWaterExperimentandDate?.datetime
+							).format("MMM D, YYYY h:mm A")}`}
 						/>
 					</div>
 				</div>
