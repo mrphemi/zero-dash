@@ -27,6 +27,13 @@ export default async function Home() {
 		(item) => item.water_mass__g === peakWaterConsumed
 	);
 
+	//   const uniqueExperiments = new Set(data.map((item) => item.experiment_id)).size;
+	// const totalExperiments = uniqueExperiments;
+	// const averageFuelProducedPerExperiment = totalFuelProduced / uniqueExperiments;
+	// const startDate = moment(sortedData[0].datetime);
+	// const endDate = moment(sortedData[sortedData.length - 1].datetime);
+	// const totalWeeks = endDate.diff(startDate, "weeks") + 1;
+
 	// Sort data by datetime in descending order
 	const sortedData = data.sort(
 		(a, b) => moment(b.datetime).valueOf() - moment(a.datetime).valueOf()
